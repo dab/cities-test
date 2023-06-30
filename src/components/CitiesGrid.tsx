@@ -24,11 +24,6 @@ interface CityBox {
   units?: string
 }
 
-const WIND_UNITS = {
-  'imperial': 'm/hr',
-  'metric': 'm/s'
-}
-
 const WEATHER_URL =  (lon: number, lat: number, units: string) => `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=24786c38b3d79b06355c93983fb04128&units=${units}`
 
 export const CityBox = ({city, units}: CityBox) => {
