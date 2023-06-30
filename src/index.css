@@ -35,7 +35,7 @@ h1 {
 }
 
 .city-gradient-bg {
-  background: linear-gradient(180deg, #010202 -20%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, rgba(1, 2, 2, 0.90) -20%, rgba(255, 255, 255, 0) 100%);
   z-index: 1;
   position: absolute;
   top: 0;
@@ -63,7 +63,7 @@ h1 {
 
 .city-box:hover .city-gradient-bg,
 .city-box.selected .city-gradient-bg {
-  background: linear-gradient(180deg, #006A6A 0%, rgba(0, 87, 87, 0.50) 100%);
+  background: linear-gradient(180deg, #006A6A -20%, rgba(0, 87, 87, 0.50) 100%);
 }
 
 .city-thumb {

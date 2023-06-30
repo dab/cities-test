@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { CitiesGrid, City, City as CityType } from './components/CitiesGrid'
 import citiesData from './assets/data.json'
 import { fetchContinents, getCitiesByDistance, getCitiesByName } from './utils'
-import {  useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import './index.css'
 
 const SORTING = {
   NAME: 'NAME',
@@ -22,41 +23,51 @@ export default function App() {
   const [sorting, setSorting] = useState<string>()
   const [tempUnit, setTempUnit] = useState(TEMP_UNIT.C)
   const {cityName} = useParams()
+  const [isSorted, setIsSorted] = useState(false)
+
+  useEffect(() => {
+    setSortByName()
+  }, [])
 
   // sorting
   useEffect(() => {
     if (cities.length) {
-      if (sorting === SORTING.NAME) {
-        const sortedCities = [...cities].sort(getCitiesByName)
+    if (sorting === SORTING.NAME) {
+      const sortedCities = [...cities].sort(getCitiesByName)
+      setCities(sortedCities)
+    }
+
+    if (sorting === SORTING.DISTANCE) {
+      // sort by distance to Barcelona
+      const referenceCity = citiesData.find(city => city.name === "Barcelona")
+      const UNIT = 'K' //km
+      if (referenceCity) {
+        const sortedCities = getCitiesByDistance([...cities], referenceCity, UNIT)
         setCities(sortedCities)
       }
-
-      if (sorting === SORTING.DISTANCE) {
-        // sort by distance to Barcelona
-        const referenceCity = citiesData.find(city => city.name === "Barcelona")
-        const UNIT = 'K'
-        if (referenceCity) {
-          const sortedCities = getCitiesByDistance([...cities], referenceCity, UNIT)
-          setCities(sortedCities)
-        }
-      }
     }
-  }, [sorting])
+    }
+    setIsSorted(true)
+  }, [isSorted, sorting])
 
   // country, name and continent filter
   useEffect(() => {
     if (nameFilter.length === 0 && continentsFilter === 'ALL') {
       setCities([...citiesData])
     }
-    if (continentsFilter !== 'ALL' && nameFilter.length === 0) setCities(citiesData.filter(city => continentsFilter === 'ALL' || city.continent === continentsFilter))
+    if (continentsFilter !== 'ALL' && nameFilter.length === 0) {
+      setCities(citiesData.filter(city => city.continent === continentsFilter))
+    }
     if (nameFilter.length > 0 && continentsFilter !== 'ALL') {
-      const filteredCities = [...citiesData].filter(city => continentsFilter === 'ALL' || city.continent === continentsFilter).filter(city => city.name.toLowerCase().includes(nameFilter.toLowerCase()) || city.country.toLocaleLowerCase().includes(nameFilter.toLowerCase()))
+      const filteredCities = [...citiesData].filter(city => city.continent === continentsFilter).filter(city => city.name.toLowerCase().includes(nameFilter.toLowerCase()) || city.country.toLocaleLowerCase().includes(nameFilter.toLowerCase()))
       setCities(filteredCities)
     }
     if (nameFilter.length > 0 && continentsFilter === 'ALL') {
       const filteredCities = [...citiesData].filter(city => city.name.toLowerCase().includes(nameFilter.toLowerCase()) || city.country.toLocaleLowerCase().includes(nameFilter.toLowerCase()))
       setCities(filteredCities)
     }
+    setIsSorted(false)
+
   }, [nameFilter, continentsFilter])
 
   useEffect(() => {
@@ -82,7 +93,7 @@ export default function App() {
 
   const resetFilters = () => {
     setCities(citiesData)
-    setSorting(undefined)
+    setSorting(SORTING.NAME)
     setNameFilter('')
     setContinentsFilter('ALL')
     setTempUnit(TEMP_UNIT.C)
