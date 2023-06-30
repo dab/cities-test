@@ -1,16 +1,14 @@
-# Simple React.js app
+# React.js Cities Overview
 
-Build used vite.js, react, tailwindcss
+Build used vite, react, little bit of tailwindcss.
 
 ## Local setup
 
-Clone, install npm modules, run.
-
-Now little more details:
+Clone, install npm modules, run:
 
 ```
 git clone ...
-cd app
+cd cities-test
 npm install
 npm run dev
 ```
