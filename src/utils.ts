@@ -26,6 +26,8 @@
 //:::                                                                         :::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+import { City } from "./components/CitiesGrid";
+
 type DistancesArgs = {
     lat1: number;
     lon1: number;
@@ -59,12 +61,55 @@ export function distance(args: DistancesArgs) {
 
 
 // Sorting helper function
-export function compareDistance(firstPoint: DistancesArgs, secondPoint: DistancesArgs): number {
-  if (distance(firstPoint) < distance(secondPoint)) {
-    return -1;
+export function getCitiesByDistance(sortedCities: City[], referenceCity: City, UNIT: string) {
+  return sortedCities.sort((a: City, b: City) => {
+    if (referenceCity) {
+      const city1 = {
+        lat1: a.coords.lat,
+        lon1: a.coords.lng,
+        lat2: referenceCity.coords.lat,
+        lon2: referenceCity.coords.lng,
+        unit: UNIT
+      }
+      const city2 = {
+        lat1: b.coords.lat,
+        lon1: b.coords.lng,
+        lat2: referenceCity.coords.lat,
+        lon2: referenceCity.coords.lng,
+        unit: UNIT
+      }
+      const dist1 = distance(city1)
+      const dist2 = distance(city2)
+      if (dist1 < dist2) {
+        return -1;
+      }
+      if (dist1 > dist2) {
+        return 1;
+      }
+    }
+    return 0;
+  })
+}
+
+export function getCitiesByName(a: City, b: City) {
+  const nameA = a.name.toUpperCase()
+  const nameB = b.name.toUpperCase()
+  if (nameA < nameB) {
+    return -1
   }
-  if (distance(firstPoint) > distance(secondPoint)) {
-    return 1;
+  if (nameA > nameB) {
+    return 1
   }
-  return 0;
+  return 0
+}
+
+// fetch continents from cities list
+export const fetchContinents = (cities: City[]): string[] => {
+  const availableContinents: string[] = ['ALL']
+  cities.forEach(city => {
+    if (!availableContinents.includes(city.continent)) {
+      availableContinents.push(city.continent)
+    }
+  })
+  return availableContinents
 }

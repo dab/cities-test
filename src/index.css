@@ -26,6 +26,10 @@ h1 {
   line-height: 1.1;
 }
 
+.filters.hidden {
+  display: none;
+}
+
 .cities-grid {
   margin-left: -8px;
 }
@@ -51,13 +55,14 @@ h1 {
   position: relative;
 }
 
-.city-box:hover {
+.city-box.selected {
   cursor: pointer;
   border-color: #0FF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
-.city-box:hover .city-gradient-bg {
+.city-box:hover .city-gradient-bg,
+.city-box.selected .city-gradient-bg {
   background: linear-gradient(180deg, #006A6A 0%, rgba(0, 87, 87, 0.50) 100%);
 }
 
@@ -73,12 +78,15 @@ h1 {
   
 }
 
-.sorting-filter a.active {
+.sorting-filter a.active,
+.units-selector a.active {
   text-decoration: underline;
 }
 
 .filters {
-  margin-bottom: 34px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .filters label {
@@ -97,6 +105,7 @@ h1 {
   font-size: 15px;
   min-width: 400px;
   margin-right: 36px;
+  margin-bottom: 10px;
 }
 
 .filters .text-filter {
@@ -107,16 +116,34 @@ h1 {
   display: block;
   width: 16px;
   height: 16px;
-  border: 3px solid red;
   position: absolute;
   right: 42px;
   top: 2.4rem;
   z-index: 100;
   text-indent: -10000px;
 
-    background-image: url(/assets/icon-cross.svg);
-    background-size:100% 100%;
+    background-image: url('/icon-cross.svg');
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size:cover;
+}
+
+.filters select {
+  border-radius: 5px;
+  padding: 9px 13px;
+  border: 1px solid #000;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.25) inset;
+  height: 36px;
+  font-size: 15px;
+  min-width: 400px;
+  margin-right: 36px;
+}
+
+.filters .sorting-filter {
+  margin-right: 32px;
+}
+
+.filters .separator {
+  padding: 0 5px;
 }
