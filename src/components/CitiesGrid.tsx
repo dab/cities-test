@@ -1,22 +1,23 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { TEMP_UNIT } from '../App';
+import { TEMP_UNIT } from './WeatherDashboard'
+import styles from './CitiesGrid.module.css'
 
 type Coords = {
-  lat: number;
-  lng: number;
+  lat: number
+  lng: number
 }
 
 export type City = {
-  active: boolean;
-  continent: string;
-  country: string;
-  description: string;
-  image: string;
-  name: string;
-  coords: Coords;
-  selected?: boolean;
+  active: boolean
+  continent: string
+  country: string
+  description: string
+  image: string
+  name: string
+  coords: Coords
+  selected?: boolean
 }
 
 interface CityBox {
@@ -53,7 +54,7 @@ export const CityBox = ({city, units}: CityBox) => {
   }, [isSelected, metrics])
 
   return(
-    <div key={city.name} className={`city-box ${city.selected ? 'selected' : ''}`}>
+    <div key={city.name} className={city.selected ? styles.cityBox_selected : styles.cityBox}>
       <h2 className="z-10 relative text-white text-2xl">{city.name}</h2>
       <h3 className="z-10 relative text-white text-xl">{city.country}</h3>
       {
@@ -68,8 +69,8 @@ export const CityBox = ({city, units}: CityBox) => {
               </p>
             </>
       }
-      <div className="city-gradient-bg z-1" />
-      <img src={city.image} alt="" className="city-thumb" />
+      <div className={styles.city__gradient_bg} />
+      <img src={city.image} alt="" className={styles.cityThumb} />
     </div>
   )
 }
@@ -81,7 +82,7 @@ interface CitiesGrid {
 
 export const CitiesGrid = ({cities, units}: CitiesGrid) => {
   return(
-    <section className="cities-grid flex flex-wrap justify-start justify-items-start content-start shrink-0 grow-0">
+    <section className={styles.citiesGrid}>
       { cities.length 
         ? cities.filter(city => city.active)
           .map(city => <Link key={`${city.country}-${city.name}`} to={`/cities/${city.name.toLowerCase()}`} ><CityBox city={city} units={units} /></Link>)
