@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TEMP_UNIT } from './WeatherDashboard'
-import styles from './CitiesGrid.module.css'
+import styles from './CitiesGrid.module.scss'
 
 type Coords = {
   lat: number

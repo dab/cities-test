@@ -1,3 +1,5 @@
+$default-box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.25) inset;
+
 .filters {
   margin-bottom: 24px;
   display: flex;
@@ -15,7 +17,7 @@
   border-radius: 5px;
   border: 1px solid #000;
   background: #FFF;
-  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: $default-box-shadow;
   height: 36px;
   font-size: 15px;
   min-width: 400px;
@@ -37,10 +39,10 @@
   z-index: 100;
   text-indent: -10000px;
 
-    background-image: url('/icon-cross.svg');
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size:cover;
+  background-image: url('/icon-cross.svg');
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: cover;
 }
 
 .filters__select {
@@ -48,7 +50,7 @@
   padding: 9px 13px;
   border: 1px solid #000;
   background: #FFF;
-  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: $default-box-shadow;
   height: 36px;
   font-size: 15px;
   min-width: 400px;

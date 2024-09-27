@@ -4,7 +4,7 @@ import { CitiesGrid, City, City as CityType } from './CitiesGrid'
 import citiesData from '../assets/data.json'
 import { fetchContinents, getCitiesByDistance, getCitiesByName } from '../utils'
 import { useParams } from 'react-router-dom'
-import styles from './WeatherDashboard.module.css'
+import styles from './WeatherDashboard.module.scss'
 
 const SORTING = {
   NAME: 'NAME',

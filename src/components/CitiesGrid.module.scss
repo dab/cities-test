@@ -1,3 +1,5 @@
+$bg-gradient_active: linear-gradient(180deg, #006A6A -20%, rgba(0, 87, 87, 0.50) 100%);
+$bg-gradient: linear-gradient(180deg, rgba(1, 2, 2, 0.90) -20%, rgba(255, 255, 255, 0) 100%);
 
 .citiesGrid {
   margin-left: -8px;
@@ -10,7 +12,7 @@
 }
 
 .city__gradient_bg {
-  background: linear-gradient(180deg, rgba(1, 2, 2, 0.90) -20%, rgba(255, 255, 255, 0) 100%);
+  background: $bg-gradient;
   z-index: 1;
   position: absolute;
   top: 0;
@@ -29,8 +31,10 @@
   border: 8px solid white;
   position: relative;
 
-  &:hover .city__gradient-bg {
-    background: linear-gradient(180deg, #006A6A -20%, rgba(0, 87, 87, 0.50) 100%);
+  &:hover {
+    .city__gradient_bg {
+      background: $bg-gradient_active;
+    }
   }
 }
 
@@ -43,8 +47,8 @@
 .cityBox_selected {
   composes: cityBox _selected;
   
-  & .city__gradient-bg {
-    background: linear-gradient(180deg, #006A6A -20%, rgba(0, 87, 87, 0.50) 100%);
+  .city__gradient_bg {
+    background: $bg-gradient_active;
   }
 }
 
